@@ -23,6 +23,7 @@ import 'package:kyber_launcher/gen/fonts.gen.dart';
 import 'package:kyber_launcher/injection_container.dart';
 import 'package:kyber_launcher/shared/ui/buttons/button.dart';
 import 'package:kyber_launcher/shared/ui/utils/background_blur.dart';
+import 'package:window_manager/window_manager.dart';
 
 class WalkThroughSetup extends StatefulWidget {
   const WalkThroughSetup({super.key});
@@ -61,9 +62,22 @@ class _WalkThroughSetupState extends State<WalkThroughSetup> {
         child: Row(
           children: [
             Expanded(
-              child: Padding(padding: .only(left: 16), child: kl.TitleBar()),
+              child: DragToMoveArea(
+                child: Padding(padding: .only(left: 16), child: kl.TitleBar()),
+              ),
             ),
-            Expanded(child: ActionBar()),
+            Expanded(
+              child: Stack(
+                children: [
+                  Positioned.fill(
+                    child: DragToMoveArea(
+                      child: const SizedBox.expand(),
+                    ),
+                  ),
+                  const ActionBar(),
+                ],
+              ),
+            ),
           ],
         ),
       ),
